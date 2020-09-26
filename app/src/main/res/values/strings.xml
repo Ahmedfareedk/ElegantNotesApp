@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ModernNotesApp</string>
+    <string name="my_notes">My Notes</string>
+    <string name="search_notes_text">Search Notes</string>
+    <string name="note_title">Note Title</string>
+    <string name="tap_and_start_typing">Tap and start typing...</string>
+</resources>
