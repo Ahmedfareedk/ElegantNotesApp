@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout android:layout_width="match_parent"  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/layout_miscellaneous"
     android:background="@drawable/miscellaneous_layout_background"
@@ -18,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/ubuntu_bold"
-        android:text="Miscellaneous"
+        android:text="@string/miscellaneous"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_14sdp" />
 
@@ -135,7 +134,34 @@
             android:fontFamily="@font/ubuntu_bold"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_note_image_root"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:contentDescription="@string/app_name"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:src="@drawable/ic_image"
+            app:tint="@color/colorIcons"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Add picture"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:includeFontPadding="false"
+            />
 
+
+    </LinearLayout>
 </LinearLayout>
-<!--
-</layout>-->
+</layout>

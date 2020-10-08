@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -10,6 +11,15 @@
         android:background="@drawable/note_item_background"
         android:orientation="vertical"
         android:paddingBottom="@dimen/_16sdp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/note_rounded_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:riv_corner_radius_top_left="@dimen/_8sdp"
+            app:riv_corner_radius_top_right="@dimen/_8sdp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/note_item_title"

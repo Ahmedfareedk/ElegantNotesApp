@@ -1,5 +1,6 @@
 package com.example.modernnotesapp.adapter;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -63,6 +64,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
                 rootBackground.setColor(Color.parseColor(note.getNoteColor()));
             }else{
                 rootBackground.setColor(Color.parseColor("#333333"));
+            }
+
+            if(note.getNoteImagePath()!=null){
+                noteItemBinding.noteRoundedImage.setImageBitmap(BitmapFactory.decodeFile(note.getNoteImagePath()));
+                noteItemBinding.noteRoundedImage.setVisibility(View.VISIBLE);
+            }else{
+                noteItemBinding.noteRoundedImage.setVisibility(View.GONE);
             }
 
         }

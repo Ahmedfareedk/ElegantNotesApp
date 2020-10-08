@@ -4,4 +4,5 @@
     <string name="search_notes_text">Search Notes</string>
     <string name="note_title">Note Title</string>
     <string name="tap_and_start_typing">Tap and start typing...</string>
+    <string name="miscellaneous">Miscellaneous</string>
 </resources>

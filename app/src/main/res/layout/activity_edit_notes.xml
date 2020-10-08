@@ -108,6 +108,18 @@
                     app:layout_constraintEnd_toStartOf="@id/note_subtitle"
                     app:layout_constraintTop_toTopOf="@id/note_subtitle" />
 
+                <ImageView
+                    android:id="@+id/note_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintTop_toBottomOf="@id/note_subtitle" />
+
                 <EditText
                     android:id="@+id/input_note_content"
                     android:layout_width="match_parent"
@@ -127,7 +139,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/note_subtitle" />
+                    app:layout_constraintTop_toBottomOf="@id/note_image_view" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,7 +147,6 @@
 
         <include
             android:id="@+id/miscellaneous_layout"
-            layout="@layout/layout_miscellaneous"
-            />
+            layout="@layout/layout_miscellaneous" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

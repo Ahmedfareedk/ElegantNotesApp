@@ -2,7 +2,6 @@ package com.example.modernnotesapp.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
@@ -25,28 +24,24 @@ public class Note implements Serializable {
     private String noteColor;
 
     @ColumnInfo(name = "note_image")
-    private String noteImage;
+    private String noteImagePath;
 
     @ColumnInfo(name = "note_date_time")
     private String noteDateTime;
 
-    public String getNoteContent() {
-        return noteContent;
-    }
 
-    public void setNoteContent(String noteContent) {
-        this.noteContent = noteContent;
-    }
+
 
     @ColumnInfo(name = "note_content")
     private String noteContent;
 
-    public Note(String noteTitle, String noteSubtitle, String noteColor, String noteDateTime, String noteContent) {
+    public Note(String noteTitle, String noteSubtitle, String noteColor, String noteDateTime, String noteContent, String noteImagePath) {
         this.noteTitle = noteTitle;
         this.noteSubtitle = noteSubtitle;
         this.noteColor = noteColor;
         this.noteDateTime = noteDateTime;
         this.noteContent = noteContent;
+        this.noteImagePath = noteImagePath;
     }
 
 
@@ -92,12 +87,12 @@ public class Note implements Serializable {
         this.noteColor = noteColor;
     }
 
-    public String getNoteImage() {
-        return noteImage;
+    public String getNoteImagePath() {
+        return noteImagePath;
     }
 
-    public void setNoteImage(String noteImage) {
-        this.noteImage = noteImage;
+    public void setNoteImagePath(String noteImagePath) {
+        this.noteImagePath = noteImagePath;
     }
 
     public String getNoteDateTime() {
@@ -108,6 +103,13 @@ public class Note implements Serializable {
         this.noteDateTime = noteDateTime;
     }
 
+    public String getNoteContent() {
+        return noteContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
+    }
     @Override
     public String toString() {
         return noteTitle + " : " + noteSubtitle + noteContent + noteDateTime;
