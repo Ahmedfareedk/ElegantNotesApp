@@ -2,6 +2,7 @@ package com.example.modernnotesapp.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
@@ -29,11 +30,11 @@ public class Note implements Serializable {
     @ColumnInfo(name = "note_date_time")
     private String noteDateTime;
 
-
-
-
     @ColumnInfo(name = "note_content")
     private String noteContent;
+
+    @Ignore
+    public Note(){}
 
     public Note(String noteTitle, String noteSubtitle, String noteColor, String noteDateTime, String noteContent, String noteImagePath) {
         this.noteTitle = noteTitle;
@@ -59,16 +60,18 @@ public class Note implements Serializable {
         return noteTitle;
     }
 
-    public void setNoteTitle(String noteTitle) {
+    public Note setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
+        return this;
     }
 
     public String getNoteSubtitle() {
         return noteSubtitle;
     }
 
-    public void setNoteSubtitle(String noteSubtitle) {
+    public Note setNoteSubtitle(String noteSubtitle) {
         this.noteSubtitle = noteSubtitle;
+        return this;
     }
 
     public String getNoteWebLink() {
@@ -83,33 +86,42 @@ public class Note implements Serializable {
         return noteColor;
     }
 
-    public void setNoteColor(String noteColor) {
+    public Note setNoteColor(String noteColor) {
         this.noteColor = noteColor;
+        return this;
     }
 
     public String getNoteImagePath() {
         return noteImagePath;
+
     }
 
-    public void setNoteImagePath(String noteImagePath) {
+    public Note setNoteImagePath(String noteImagePath) {
         this.noteImagePath = noteImagePath;
+        return this;
     }
 
     public String getNoteDateTime() {
         return noteDateTime;
     }
 
-    public void setNoteDateTime(String noteDateTime) {
+    public Note setNoteDateTime(String noteDateTime) {
         this.noteDateTime = noteDateTime;
+        return this;
     }
 
     public String getNoteContent() {
         return noteContent;
     }
 
-    public void setNoteContent(String noteContent) {
+    public Note setNoteContent(String noteContent) {
         this.noteContent = noteContent;
+        return this;
     }
+
+   /* public Note create(){
+        return new Note(this.noteTitle, this.noteSubtitle, this.noteColor, this.noteDateTime, this.noteContent, this.noteImagePath);
+    }*/
     @Override
     public String toString() {
         return noteTitle + " : " + noteSubtitle + noteContent + noteDateTime;

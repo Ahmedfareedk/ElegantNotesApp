@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.modernnotesapp.R;
+import com.example.modernnotesapp.callback.OnNotesListener;
 import com.example.modernnotesapp.database.Note;
 import com.example.modernnotesapp.databinding.NoteItemBinding;
 
@@ -20,9 +21,12 @@ import java.util.List;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
     private List<Note> noteList;
     private NoteItemBinding noteItemBinding;
+    private OnNotesListener notesListener;
 
-    public NotesAdapter(List<Note> noteList) {
+
+    public NotesAdapter(List<Note> noteList, OnNotesListener notesListener) {
         this.noteList = noteList;
+        this.notesListener = notesListener;
     }
 
     @NonNull
@@ -37,6 +41,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         holder.setNoteContent(noteList.get(position));
+        noteItemBinding.noteItemRoot.setOnClickListener(v -> notesListener.OnNoteClickListener(noteList.get(position), position));
     }
 
     @Override
@@ -72,6 +77,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             }else{
                 noteItemBinding.noteRoundedImage.setVisibility(View.GONE);
             }
+
 
         }
     }

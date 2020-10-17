@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/custom_alert_dialog_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/add_url_layout_background">
+
+        <ImageView
+            android:id="@+id/weblink_image"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_weblink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/add_url_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="@string/add_url"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/weblink_image"
+            app:layout_constraintStart_toEndOf="@id/weblink_image"
+            app:layout_constraintTop_toTopOf="@id/weblink_image" />
+
+        <EditText
+            android:id="@+id/add_url_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:backgroundTint="@color/colorIcons"
+            android:hint="@string/write_url"
+            android:imeOptions="actionDone"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorIcons"
+            android:textSize="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/weblink_image"
+            app:layout_constraintTop_toBottomOf="@id/weblink_image" />
+
+        <TextView
+            android:id="@+id/add_done_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="@string/add"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/add_url_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/add_url_edit_text" />
+
+        <TextView
+            android:id="@+id/add_cancel_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/add_done_text_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

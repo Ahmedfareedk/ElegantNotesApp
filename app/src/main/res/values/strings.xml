@@ -5,4 +5,9 @@
     <string name="note_title">Note Title</string>
     <string name="tap_and_start_typing">Tap and start typing...</string>
     <string name="miscellaneous">Miscellaneous</string>
+    <string name="add_url">Add URL</string>
+    <string name="write_url">Write URL</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

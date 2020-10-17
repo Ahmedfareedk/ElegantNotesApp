@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.example.modernnotesapp.R;
 import com.example.modernnotesapp.adapter.NotesAdapter;
+import com.example.modernnotesapp.callback.OnNotesListener;
 import com.example.modernnotesapp.database.Note;
 import com.example.modernnotesapp.database.NotesDatabase;
 import com.example.modernnotesapp.databinding.ActivityMainBinding;
@@ -24,8 +25,10 @@ import com.example.modernnotesapp.ui.notesEdit.EditNotesActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnNotesListener {
     private static final int ADD_NOTE_REQUEST_CODE = 1;
+    private static final int UPDATE_NOTE_REQUEST_CODE = 2;
+    private int selectedNotePosition = -1;
     private List<Note> notesList;
     private NotesAdapter notesAdapter;
     private ActivityMainBinding binding;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.addNoteBtn.setOnClickListener(this);
         notesList = new ArrayList<>();
-        notesAdapter = new NotesAdapter(notesList);
+        notesAdapter = new NotesAdapter(notesList,this);
         binding.notesRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.notesRecyclerview.setAdapter(notesAdapter);
         getNotes();
@@ -79,5 +82,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode == ADD_NOTE_REQUEST_CODE && resultCode == RESULT_OK){
             getNotes();
         }
+    }
+
+    @Override
+    public void OnNoteClickListener(Note note, int position) {
+        Intent intent = new Intent(getApplicationContext(), EditNotesActivity.class);
+        intent.putExtra("isViewOrUpdate", true);
+        intent.putExtra("note", note);
+        startActivityForResult(intent, UPDATE_NOTE_REQUEST_CODE);
     }
 }
