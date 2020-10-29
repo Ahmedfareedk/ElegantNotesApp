@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.room.Delete;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -52,6 +53,7 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
     private LayoutMiscellaneousBinding miscellaneousBinding;
     private AddUrlCustomBinding customAlertDialogBinding;
     private AlertDialog addUrlAlertDialog;
+    private AlertDialog deleteNoteAlertDialog;
 
     private String selectedNoteColor;
     private ImageView viewColor1, viewColor2, viewColor3, viewColor4, viewColor5;
@@ -206,6 +208,7 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
         new InsertNote().execute();
     }
 
+
     private void initMiscellaneous() {
         BottomSheetBehavior<LinearLayout> bottomSheet = BottomSheetBehavior.from(miscellaneousBinding.layoutMiscellaneous);
         miscellaneousBinding.miscellaneousText.setOnClickListener(v -> {
@@ -238,7 +241,18 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
             addUrlAlertDialogBuilder();
         });
 
+        if(alreadyExistedNote!=null){
+            miscellaneousBinding.deleteNoteImageRoot.setVisibility(View.VISIBLE);
+            miscellaneousBinding.deleteNoteImageRoot.setOnClickListener(v -> {
+                showDeleteNoteDialog();
+            });
+
+
+        }
+
     }
+
+
 
     private void setViewImageColorBackground(View view, int position) {
         view.setOnClickListener(v -> setDoneBackground(position));
@@ -377,6 +391,49 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
         });
         customView.findViewById(R.id.add_cancel_text_view).setOnClickListener(v -> {
             addUrlAlertDialog.dismiss();
+        });
+    }
+
+    private void showDeleteNoteDialog() {
+        View deleteView = getLayoutInflater().inflate(R.layout.delete_note_custom_dialog,  null);
+
+        AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(EditNotesActivity.this);
+        deleteDialogBuilder.setView(deleteView);
+
+        deleteNoteAlertDialog = deleteDialogBuilder.create();
+
+        if (deleteNoteAlertDialog.getWindow() != null) {
+            deleteNoteAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+
+        deleteNoteAlertDialog.show();
+
+        deleteView.findViewById(R.id.delete_note_confirm).setOnClickListener(v -> {
+          @SuppressLint("StaticFieldLeak")
+          class DeleteNoteAsyncTask extends AsyncTask<Void, Void, Void>{
+
+              @Override
+              protected Void doInBackground(Void... voids) {
+                  NotesDatabase.getInstance(getApplicationContext()).NotesDao().deleteNote(alreadyExistedNote);
+                  return null;
+              }
+
+
+              @Override
+              protected void onPostExecute(Void aVoid) {
+                  super.onPostExecute(aVoid);
+                  Intent intent = new Intent();
+                  intent.putExtra("isNoteDeleted", true);
+                  setResult(RESULT_OK, intent);
+                  finish();
+               //   Toast.makeText(EditNotesActivity.this, "Done", Toast.LENGTH_SHORT).show();
+              }
+          }
+          new DeleteNoteAsyncTask().execute();
+        });
+
+        deleteView.findViewById(R.id.delete_note_cancel).setOnClickListener(v->{
+            deleteNoteAlertDialog.dismiss();
         });
     }
 }

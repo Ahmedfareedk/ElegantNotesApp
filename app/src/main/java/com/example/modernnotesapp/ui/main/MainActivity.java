@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int ADD_NOTE_REQUEST_CODE = 1;
     private static final int UPDATE_NOTE_REQUEST_CODE = 2;
     private static final int SHOW_NOTES_REQUEST_CODE = 3;
-    private int selectedNotePosition = -1;
+    private int selectedNotePosition;
     private List<Note> notesList;
     private NotesAdapter notesAdapter;
     private ActivityMainBinding binding;
@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.addNoteBtn.setOnClickListener(this);
         notesList = new ArrayList<>();
-        notesAdapter = new NotesAdapter(notesList,this);
+        notesAdapter = new NotesAdapter(notesList, this);
         binding.notesRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.notesRecyclerview.setAdapter(notesAdapter);
-        getNotes(SHOW_NOTES_REQUEST_CODE);
+        getNotes(SHOW_NOTES_REQUEST_CODE, false);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(new Intent(MainActivity.this, EditNotesActivity.class), ADD_NOTE_REQUEST_CODE);
     }
 
-    private void getNotes(int requestCode) {
+    private void getNotes(int requestCode, boolean isNoteDeleted) {
         @SuppressLint("StaticFieldLeak")
         class GetAllNotesTask extends AsyncTask<Void, Void, List<Note>> {
 
@@ -63,17 +63,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected void onPostExecute(List<Note> notes) {
                 super.onPostExecute(notes);
-                if(requestCode == SHOW_NOTES_REQUEST_CODE){
+                if (requestCode == SHOW_NOTES_REQUEST_CODE) {
                     notesList.addAll(notes);
                     notesAdapter.notifyDataSetChanged();
-                }else if(requestCode == ADD_NOTE_REQUEST_CODE){
+                } else if (requestCode == ADD_NOTE_REQUEST_CODE) {
                     notesList.add(0, notes.get(0));
                     notesAdapter.notifyItemInserted(0);
                     binding.notesRecyclerview.smoothScrollToPosition(0);
-                }else if(requestCode == UPDATE_NOTE_REQUEST_CODE){
+                } else if (requestCode == UPDATE_NOTE_REQUEST_CODE) {
                     notesList.remove(selectedNotePosition);
-                    notesList.add(selectedNotePosition, notes.get(selectedNotePosition));
-                    notesAdapter.notifyItemChanged(selectedNotePosition);
+                    if (isNoteDeleted) {
+                        notesAdapter.notifyItemRemoved(selectedNotePosition);
+                    } else {
+                        notesList.add(selectedNotePosition, notes.get(selectedNotePosition));
+                        notesAdapter.notifyItemChanged(selectedNotePosition);
+                    }
+
+
                 }
 
             }
@@ -84,11 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ADD_NOTE_REQUEST_CODE && resultCode == RESULT_OK){
-            getNotes(ADD_NOTE_REQUEST_CODE);
-        }else if(requestCode == UPDATE_NOTE_REQUEST_CODE && resultCode == RESULT_OK){
-            if(data != null)
-            getNotes(UPDATE_NOTE_REQUEST_CODE);
+        if (requestCode == ADD_NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
+            getNotes(ADD_NOTE_REQUEST_CODE, false);
+        } else if (requestCode == UPDATE_NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                getNotes(UPDATE_NOTE_REQUEST_CODE, data.getBooleanExtra("isNoteDeleted", false));
+            }
         }
     }
 
