@@ -83,11 +83,17 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
         editNotesBinding.textDateTime.setText(new SimpleDateFormat("EEEE, MMMM, dd-yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         editNotesBinding.doneBtn.setOnClickListener(this);
 
-        noteViewColors = new View[]{miscellaneousBinding.note1View, miscellaneousBinding.note2View,miscellaneousBinding.note3View,miscellaneousBinding.note4View,miscellaneousBinding.note5View};
+        editNotesBinding.removeNoteImageButton.setOnClickListener(this);
+        editNotesBinding.noteUrlRemove.setOnClickListener(this);
+
+
+        noteViewColors = new View[]{miscellaneousBinding.note1View, miscellaneousBinding.note2View,
+                miscellaneousBinding.note3View, miscellaneousBinding.note4View,miscellaneousBinding.note5View};
         colorsArray  = new String[]{"#333333", "#FDBE3B", "#FF4842", "#3A52FC", "#004D40"};
         //default note color
         selectedNoteColor = "#333333";
         selectedImageUri = " ";
+
 
         if(getIntent().getBooleanExtra("isViewOrUpdate", false)){
             alreadyExistedNote = (Note) getIntent().getSerializableExtra("note");
@@ -106,6 +112,7 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
            editNotesBinding.noteImageView.setImageBitmap(BitmapFactory.decodeFile(alreadyExistedNote.getNoteImagePath()));
            editNotesBinding.noteImageView.setVisibility(View.VISIBLE);
            selectedImageUri = alreadyExistedNote.getNoteImagePath();
+           editNotesBinding.removeNoteImageButton.setVisibility(View.VISIBLE);
        }
 
        if(alreadyExistedNote.getNoteWebLink() != null && !alreadyExistedNote.getNoteWebLink().trim().isEmpty()){
@@ -125,8 +132,27 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
             case R.id.done_btn:
                 saveNoteToDatabase();
                 break;
+            case R.id.note_url_remove:
+                removeUrl();
+                break;
+            case R.id.remove_note_image_button:
+                removeNoteImage();
+                break;
         }
 
+    }
+
+    private void removeNoteImage() {
+        editNotesBinding.noteImageView.setImageBitmap(null);
+        editNotesBinding.noteImageView.setVisibility(View.GONE);
+        selectedImageUri ="";
+        editNotesBinding.removeNoteImageButton.setVisibility(View.GONE);
+
+    }
+
+    private void removeUrl() {
+        editNotesBinding.noteUrlTv.setText("");
+        editNotesBinding.noteUrlLayout.setVisibility(View.GONE);
     }
 
     private void saveNoteToDatabase() {
@@ -155,6 +181,9 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
 
         if (editNotesBinding.noteUrlLayout.getVisibility() == View.VISIBLE) {
             note.setNoteWebLink(editNotesBinding.noteUrlTv.getText().toString());
+        }
+        if(alreadyExistedNote != null){
+            note.setId(alreadyExistedNote.getId());
         }
 
         @SuppressLint("StaticFieldLeak")
@@ -239,32 +268,16 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
 
     private void setImageColorMarked(View[] views){
 
-        for(int i =0; i < views.length; i++){
-            if (alreadyExistedNote.getNoteColor().equals(colorsArray[i])){
-                views[i].performClick();
-                break;
+        if(alreadyExistedNote != null) {
+            if (alreadyExistedNote.getNoteColor() != null && !alreadyExistedNote.getNoteColor().trim().isEmpty()) {
+                for (int i = 0; i < views.length; i++) {
+                    if (alreadyExistedNote.getNoteColor().equals(colorsArray[i])) {
+                        views[i].performClick();
+                        break;
+                    }
+                }
             }
         }
-       /* switch (alreadyExistedNote.getNoteColor())
-        {
-            case "#333333":
-                viewColor1.performClick();
-                break;
-            case "#FDBE3B":
-                viewColor2.performClick();
-                break;
-            case "#FF4842":
-                viewColor3.performClick();
-                break;
-            case  "#3A52FC":
-                viewColor4.performClick();
-                break;
-            case  "#004D40":
-                viewColor5.performClick();
-                break;
-        }
-*/
-
     }
 
     private void requestPermission() {
@@ -310,6 +323,7 @@ public class EditNotesActivity extends AppCompatActivity implements View.OnClick
                         editNotesBinding.noteImageView.setImageBitmap(selectedImageBitmap);
                         editNotesBinding.noteImageView.setVisibility(View.VISIBLE);
                         selectedImageUri = getPathFromUri(uri);
+                        editNotesBinding.removeNoteImageButton.setVisibility(View.VISIBLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }

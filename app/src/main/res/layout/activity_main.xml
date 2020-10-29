@@ -3,129 +3,131 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:id="@+id/my_notes_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:fontFamily="@font/ubuntu_bold"
-        android:includeFontPadding="false"
-        android:text="@string/my_notes"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_20ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/search_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@drawable/background_search"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/my_notes_text">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".ui.main.MainActivity">
 
-        <ImageView
+        <TextView
+            android:id="@+id/my_notes_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            app:tint="@color/colorSearchIcon" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_32sdp"
-            android:background="@null"
-            android:fontFamily="@font/ubuntu_regular"
-            android:hint="@string/search_notes_text"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="yes"
-            android:inputType="text"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:includeFontPadding="false"
+            android:text="@string/my_notes"
             android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorTextHint"
-            android:textSize="@dimen/_12sdp" />
-    </LinearLayout>
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/background_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_notes_text">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                app:tint="@color/colorSearchIcon" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@null"
+                android:fontFamily="@font/ubuntu_regular"
+                android:hint="@string/search_notes_text"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="yes"
+                android:inputType="text"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/quickActionsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
-        android:background="@color/colorQuickActionsBackGround"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:id="@+id/quickActionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@color/colorQuickActionsBackGround"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/add_outline_image"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_outline"
+                app:tint="@color/colorIcons" />
+
+            <ImageView
+                android:id="@+id/add_image"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_image"
+                app:tint="@color/colorIcons" />
+
+            <ImageView
+                android:id="@+id/add_weblink"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_weblink"
+                app:tint="@color/colorIcons" />
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/add_outline_image"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_add_outline"
-            app:tint="@color/colorIcons" />
+            android:id="@+id/add_note_btn"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginEnd="@dimen/_32sdp"
+            android:background="@drawable/add_button_background"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toTopOf="@id/quickActionsLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/quickActionsLayout"
+            app:tint="@color/colorPrimary" />
 
-        <ImageView
-            android:id="@+id/add_image"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_image"
-            app:tint="@color/colorIcons" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notes_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@id/quickActionsLayout"
+            app:layout_constraintTop_toBottomOf="@id/search_layout"
+            tools:listitem="@layout/note_item" />
 
-        <ImageView
-            android:id="@+id/add_weblink"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_weblink"
-            app:tint="@color/colorIcons" />
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="@dimen/_32sdp"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_marginEnd="@dimen/_32sdp"
-        android:background="@drawable/add_button_background"
-        android:padding="@dimen/_6sdp"
-        android:id="@+id/add_note_btn"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@id/quickActionsLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/quickActionsLayout"
-        app:tint="@color/colorPrimary" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notes_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:clipToPadding="false"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        tools:listitem="@layout/note_item"
-        app:layout_constraintBottom_toTopOf="@id/quickActionsLayout"
-        app:layout_constraintTop_toBottomOf="@id/search_layout" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

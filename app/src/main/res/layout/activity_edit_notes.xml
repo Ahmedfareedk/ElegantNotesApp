@@ -104,45 +104,73 @@
                     app:layout_constraintEnd_toStartOf="@id/note_subtitle"
                     app:layout_constraintTop_toTopOf="@id/note_subtitle" />
 
+
                 <ImageView
                     android:id="@+id/note_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:adjustViewBounds="true"
-                    android:visibility="gone"
                     android:contentDescription="@string/app_name"
-                    app:layout_constraintTop_toBottomOf="@id/note_subtitle" />
+                    app:layout_constraintTop_toBottomOf="@id/note_subtitle"
+                    tools:src="@drawable/ic_weblink" />
+
+                <ImageView
+                    android:id="@+id/remove_note_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/delete_button_background"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_delete"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/note_image_view"
+                    app:layout_constraintEnd_toEndOf="@id/note_image_view"
+                    app:layout_constraintTop_toTopOf="@id/note_image_view"
+                    app:tint="@color/colorDelete" />
+
 
                 <LinearLayout
+                    android:id="@+id/note_url_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/note_url_layout"
                     android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/url_layout_background"
+                    android:orientation="horizontal"
                     android:padding="@dimen/_8sdp"
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/note_image_view"
-                    >
+
+                    app:layout_goneMarginEnd="@dimen/_8sdp">
+
                     <TextView
+                        android:id="@+id/note_url_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/note_url_tv"
                         android:autoLink="web"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/ubuntu_regular"
                         android:includeFontPadding="false"
-                        />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/note_url_remove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/colorDelete" />
 
                 </LinearLayout>
-
-
-
 
                 <EditText
                     android:id="@+id/input_note_content"

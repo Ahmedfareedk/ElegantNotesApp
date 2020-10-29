@@ -28,6 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnNotesListener {
     private static final int ADD_NOTE_REQUEST_CODE = 1;
     private static final int UPDATE_NOTE_REQUEST_CODE = 2;
+    private static final int SHOW_NOTES_REQUEST_CODE = 3;
     private int selectedNotePosition = -1;
     private List<Note> notesList;
     private NotesAdapter notesAdapter;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notesAdapter = new NotesAdapter(notesList,this);
         binding.notesRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.notesRecyclerview.setAdapter(notesAdapter);
-        getNotes();
+        getNotes(SHOW_NOTES_REQUEST_CODE);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(new Intent(MainActivity.this, EditNotesActivity.class), ADD_NOTE_REQUEST_CODE);
     }
 
-    private void getNotes() {
+    private void getNotes(int requestCode) {
         @SuppressLint("StaticFieldLeak")
         class GetAllNotesTask extends AsyncTask<Void, Void, List<Note>> {
 
@@ -62,15 +63,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected void onPostExecute(List<Note> notes) {
                 super.onPostExecute(notes);
-                if (notesList.isEmpty()) {
+                if(requestCode == SHOW_NOTES_REQUEST_CODE){
                     notesList.addAll(notes);
                     notesAdapter.notifyDataSetChanged();
-                }else {
+                }else if(requestCode == ADD_NOTE_REQUEST_CODE){
                     notesList.add(0, notes.get(0));
                     notesAdapter.notifyItemInserted(0);
+                    binding.notesRecyclerview.smoothScrollToPosition(0);
+                }else if(requestCode == UPDATE_NOTE_REQUEST_CODE){
+                    notesList.remove(selectedNotePosition);
+                    notesList.add(selectedNotePosition, notes.get(selectedNotePosition));
+                    notesAdapter.notifyItemChanged(selectedNotePosition);
                 }
-                binding.notesRecyclerview.smoothScrollToPosition(0);
-                Log.d("Notes Info", notes.toString());
+
             }
         }
         new GetAllNotesTask().execute();
@@ -80,15 +85,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ADD_NOTE_REQUEST_CODE && resultCode == RESULT_OK){
-            getNotes();
+            getNotes(ADD_NOTE_REQUEST_CODE);
+        }else if(requestCode == UPDATE_NOTE_REQUEST_CODE && resultCode == RESULT_OK){
+            if(data != null)
+            getNotes(UPDATE_NOTE_REQUEST_CODE);
         }
     }
 
     @Override
     public void OnNoteClickListener(Note note, int position) {
+        selectedNotePosition = position;
         Intent intent = new Intent(getApplicationContext(), EditNotesActivity.class);
         intent.putExtra("isViewOrUpdate", true);
         intent.putExtra("note", note);
         startActivityForResult(intent, UPDATE_NOTE_REQUEST_CODE);
     }
+
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+        binding.notesRecyclerview.setAdapter(notesAdapter);
+        getNotes(SHOW_NOTES_REQUEST_CODE);
+    }*/
 }
